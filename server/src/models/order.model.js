@@ -19,22 +19,21 @@ export const getOrders = (userId) => {
   return ordersCollection.filter((coffee) => coffee.userId === userId);
 };
 
-// ! FALTA IMPLEMENTAR (NO SE USA EN EL PROYECTO)
 export const getOrderById = (id, userId) => {
   return (
     ordersCollection.find(
-      (coffee) => coffee.id === id && coffee.userId === userId
+      (order) => order.id === id && order.userId === userId
     ) || null
   );
 };
 
-// ! FALTA IMPLEMENTAR (NO SE USA EN EL PROYECTO)
 export const deleteOrderById = (id, userId) => {
-  const deletedOrder = ordersCollection.find(
-    (coffee) => coffee.id === id && coffee.userId === userId
+  const orderIndex = ordersCollection.findIndex(
+    (order) => order.id === id && order.userId === userId
   );
-  ordersCollection = ordersCollection.filter(
-    (coffee) => coffee.id !== id && coffee.userId === userId
-  );
-  return deletedOrder;
+  if (orderIndex !== -1) {
+    const [deletedOrder] = ordersCollection.splice(orderIndex, 1);
+    return deletedOrder;
+  }
+  return null;
 };
