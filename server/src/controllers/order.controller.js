@@ -4,6 +4,10 @@ export const createOrderCtrl = (req, res) => {
   const userId = req.user.id;
   const { coffee } = req.body;
 
+  if (!coffee) {
+    return res.status(400).json({ message: "Coffee is required" });
+  }
+
   const order = createOrder(coffee, userId);
 
   res.status(201).json(order);
